@@ -41,7 +41,7 @@ export function getMe(token) {
 
 // ---------- รีวิว ----------
 export function getReviews(movieId) {
-  return apiFetch(`/api/movies/${movieId}/reviews`);                                   // ได้ { items }
+  return apiFetch(`/api/movies/${movieId}/reviews`);   // ได้ { items }
 }
 export function postReview(movieId, text, token) {
   return apiFetch(`/api/movies/${movieId}/reviews`, { method: 'POST', body: { text }, token });
