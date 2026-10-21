@@ -20,11 +20,13 @@ export async function apiFetch(path, { method = 'GET', body, token } = {}) {
 
   if (res.status === 204) return null;                       // 3) ลบสำเร็จ ไม่มี body ให้อ่าน
 
-    const data = await res.json().catch(() => null);
+  const data = await res.json().catch(() => null);
   if (!res.ok || data === null) {
     const err = new Error(
       data?.error?.message ?? data?.error ??
-      `server ตอบ ${res.status} ที่ไม่ใช่ JSON (${method} ${path})`
+      (data === null
+        ? `server ไม่ได้ตอบเป็น JSON (${res.status} ${method} ${path})`
+        : `server ตอบ ${res.status} (${method} ${path})`)
     );
     err.status = res.status;
     throw err;
